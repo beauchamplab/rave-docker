@@ -56,6 +56,7 @@ rave::rave_options(
 )
 
 # Run rave
-rave::start_rave(launch.browser = FALSE, host = opt$host, port = opt$port, token = opt$token)
+app <- rave::start_rave(launch.browser = FALSE, host = opt$host, port = opt$port, token = opt$token)
+print(app)
 
 q("no")
