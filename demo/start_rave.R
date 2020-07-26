@@ -98,14 +98,11 @@ tryCatch({
   cat('Error while finalize installation. Reason:\n', e$message, '\n')
 })
 
-# check host?
-opt$host <- '0.0.0.0'
-
 # Run rave
 app <-
   start_rave(
     launch.browser = FALSE,
-    host = opt$host,
+    host = '0.0.0.0',
     port = opt$port,
     token = opt$token
   )
