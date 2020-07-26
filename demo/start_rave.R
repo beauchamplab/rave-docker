@@ -14,9 +14,9 @@ local({
 })
 
 ## configuration for docopt
-doc <- "Usage: start_rave [-h] [--host HOST] [-p PORT] [-n NCPUS] [-x] [--] [PACKAGES ...]
+doc <- "Usage: start_rave [-h] [-a HOST] [-p PORT] [-n NCPUS] [-x] [--] [PACKAGES ...]
 
---host HOST         location in which to install [default: 0.0.0.0]
+-a --host HOST      location in which to install [default: 0.0.0.0]
 -p --port PORT      install suggested dependencies as well [default: 6767]
 -n --ncpus NCPUS    number of processes to use for parallel install [default: NA]
 -t --token TOKEN    token of the application [default: NULL]
@@ -99,7 +99,13 @@ tryCatch({
 })
 
 # Run rave
-app <- start_rave(launch.browser = FALSE, host = opt$host, port = opt$port, token = opt$token)
+app <-
+  start_rave(
+    launch.browser = FALSE,
+    host = opt$host,
+    port = opt$port,
+    token = opt$token
+  )
 print(app)
 
 q("no")
