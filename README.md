@@ -2,7 +2,8 @@
 
 Docker creates a "virtual machine" within which other software, such as RAVE, runs. This can be useful if you wish to distribute or create archival copies of RAVE, for instance when uploading data to a repository. It is not recommended for day-to-day (production) usage as performance is worse and usage is more complex, as the virtual machine does not have access to the entire file structure.
 For day-to-day use, please install RAVE on your local machine: https://openwetware.org/wiki/RAVE:Install
-Note that currently the RAVE docker image may not be updated as frequently as the main RAVE package so it may not contain the latest features.
+
+The RAVE docker image may not be updated as frequently as the main RAVE package so it may not contain the latest features.
 
 ## RAVE-within-Docker image installation
 
