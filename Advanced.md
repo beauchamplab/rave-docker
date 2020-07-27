@@ -28,7 +28,7 @@ RAVE benefits from multi-core CPUs. However, the more CPUs are used, the more RA
 
 For this use case, you may wish to give RAVE-within-Docker access to other directories on your machine. In this case, you must give Docker the directory that you want them to give access to:
 RAVE_ROOT=/Volumes/data/rave_data
-
+```
 docker run --name $NAME -p $PORT_MAIN:6767 -v "$RAVE_ROOT":/data/rave_data \
   -e NCPUS=$NCPUS \
   beauchamplab/rave $RAVE_SERVICE
