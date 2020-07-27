@@ -22,7 +22,7 @@ PORT_MAIN=<PORT_MAIN>
 NCPUS=<NCPUS>
 RAVE_ROOT=<RAVE_ROOT>
 
-# Start 
+# The will download the RAVE software and all dependencies, including the R language, and then start RAVE. If already downloaded, will start RAVE immediately. 
 docker run --name $NAME \
   -p $PORT_MAIN:6767 \
   -v "$RAVE_ROOT":/data/rave_data \
