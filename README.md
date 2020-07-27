@@ -15,7 +15,7 @@ docker run --name rave-docker -p 1111:6767 -e NCPUS=4 beauchamplab/rave start_ra
 ```
 All docker containers must have a unique name (specified with -name) and port # (first value after -p). Docker always uses a fixed port (6767). The port that you specify is forwarded to this port. NCPUS is the number of CPU cores to use for each container instance.
 
-To interact with RAVE, launch a web browser and enter the following address:
+To interact with RAVE, launch a web browser (Google Chrome is recommended) and enter the following address:
 ```
 http://localhost:1111
 ```
