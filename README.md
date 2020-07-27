@@ -25,7 +25,8 @@ NCPUS: Number of CPU cores to use for each container instance.
 Next, run the following command within terminal to download the RAVE software and all dependencies, including the R language, and then start RAVE. The total size of the image to be downloaded is around 1GB so the first download may take some time. If RAVE is already downloaded, it will now need to re-download and RAVE will start immediately.
 
 ```
-docker run --name $NAME -p $PORT_MAIN:6767 -v "$RAVE_ROOT":/data/rave_data -e NCPUS=$NCPUS beauchamplab/rave $RAVE_SERVICE
+docker run --name $NAME -p $PORT_MAIN:6767 -v "$RAVE_ROOT":/data/rave_data \
+-e NCPUS=$NCPUS beauchamplab/rave $RAVE_SERVICE
 ```
 Docker always uses a fixed port (6767). The port that you specify is forwarded to this port.
 
