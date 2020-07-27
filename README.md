@@ -21,7 +21,7 @@ http://localhost:1111
 ```
 Where "1111" is the port number used above.
 
-
+## Advanced Docker usage
 ## Update container
 
 1. Update docker image first, runn *Terminal* app:
