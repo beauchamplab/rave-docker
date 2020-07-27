@@ -22,5 +22,21 @@ http://localhost:1111
 ```
 Where "1111" is the port number used above.
 
+## Start and stop RAVE-within-Docker 
+If the docker instance stops, it can be restarted with
+```
+ docker restart rave-docker
+```
+Replace "rave_docker" with the name used above.
+
+To stop RAVE-within-Docker, open a terminal window and enter
+```
+ docker stop <docker_name>
+```
+To list running containers
+```
+ docker ps
+```
+
 ## Advanced Docker usage
 See this page:https://github.com/beauchamplab/rave-docker/blob/master/Advanced.md
