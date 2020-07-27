@@ -1,4 +1,6 @@
-FROM dipterix/diptools:latest
+# Not only has tools installed
+# but also has some dependencies installed to reduce build-time
+FROM dipterix/diptools:rave
 
 LABEL org.label-schema.license="GPL-3.0" \
   org.label-schema.vcs-url="https://github.com/beauchamplab/rave" \
