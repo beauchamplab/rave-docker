@@ -1,6 +1,8 @@
 # Docker files for RAVE
 
-Provides cross-platform and portable Docker containers for RAVE. RAVE Docker images are designed to be scalable for cloud services, not recommended for individual uses. Please go to [https://openwetware.org/wiki/RAVE:Install](https://openwetware.org/wiki/RAVE:Install) for installation on local drive.
+Docker creates a "virtual machine" within which other software, such as RAVE, runs. This can be useful if you wish to distribute or create archival copies of RAVE, for instance when uploading data to a repository. It is not recommended for day-to-day (production) usage as performance is worse and usage is more complex, as the virtual machine does not have access to the entire file structure.
+For day-to-day use, please install RAVE on your local machine: https://openwetware.org/wiki/RAVE:Install)
+
 
 ## Docker image installation
 
