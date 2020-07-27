@@ -27,12 +27,12 @@ If the docker instance stops, it can be restarted with
 ```
  docker restart rave-docker
 ```
-Replace "rave_docker" with the name used above.
-
 To stop RAVE-within-Docker, open a terminal window and enter
 ```
- docker stop <docker_name>
+ docker stop rave-docker
 ```
+If necessary, replace "rave-docker" with the container name specified above after --name .
+
 To list running containers
 ```
  docker ps
