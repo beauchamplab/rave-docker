@@ -9,31 +9,17 @@ For day-to-day use, please install RAVE on your local machine: https://openwetwa
 First, install Docker on your computer https://www.docker.com/products/docker-desktop
 This is not necessary if you already have Docker installed on your local machine or if you are using a cloud Docker service.
 
-Next, open a terminal window and assign the following environment variables. The syntax for assigning variables may differ across shells.
+Next, open a terminal window and run the following command. The first time it is executed, it will download RAVE software and all dependencies. The total size of the image to be downloaded is around 1GB so the first download may take some time. If RAVE is already downloaded, it will not need to re-download and RAVE will start immediately. 
 ```
-NAME=rave-docker
-RAVE_SERVICE=start_rave
-PORT_MAIN=1111
-NCPUS=4
+docker run --name rave-docker -p 1111:6767 -e NCPUS=4 beauchamplab/rave start_rave
 ```
-These values have the following meanings:
-NAME: Name of Docker container (must be unique)
-RAVE_SERVICE: Services to run (currectly only `start_rave` is supported)
-PORT_MAIN: Port number to run main application. 
-NCPUS: Number of CPU cores to use for each container instance.
+All docker containers must have a unique name (specified with -name) and port # (first value after -p). Docker always uses a fixed port (6767). The port that you specify is forwarded to this port. NCPUS is the number of CPU cores to use for each container instance.
 
-Next, run the following command within terminal to download the RAVE software and all dependencies, including the R language, and then start RAVE. The total size of the image to be downloaded is around 1GB so the first download may take some time. If RAVE is already downloaded, it will now need to re-download and RAVE will start immediately.
-
+To interact with RAVE, launch a web browser and enter the following address:
 ```
-docker run --name $NAME -p $PORT_MAIN:6767 -v "$RAVE_ROOT":/data/rave_data \
--e NCPUS=$NCPUS beauchamplab/rave $RAVE_SERVICE
+http://localhost:1111
 ```
-Docker always uses a fixed port (6767). The port that you specify is forwarded to this port.
-
-
-We highly recommend that you store your commands as *shell* scripts in case you want to update the container in the future.
-
-If the container is initialized for the first time, there might be some downloading procedures in the background (such as demo data and some template files). However, you should be able to view the application at [http://localhost:<PORT_MAIN>](http://localhost:8080) in your browsers.
+Where "1111" is the port number used above.
 
 
 ## Update container
