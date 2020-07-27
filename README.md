@@ -6,7 +6,7 @@ For day-to-day use, please install RAVE on your local machine: https://openwetwa
 
 ## RAVE-within-Docker image installation
 
-First, install Docker on your computer [link]https://www.docker.com/products/docker-desktop
+First, install Docker on your computer https://www.docker.com/products/docker-desktop
 This is not necessary if you already have Docker installed on your local machine or if you are using a cloud Docker service.
 
 Next, open a terminal window and assign the following environment variables. The syntax for assigning variables may differ across shells.
@@ -16,7 +16,6 @@ RAVE_SERVICE=start_rave
 PORT_MAIN=1111
 NCPUS=4
 ```
-
 These values have the following meanings:
 NAME: Name of Docker container (must be unique)
 RAVE_SERVICE: Services to run (currectly only `start_rave` is supported)
