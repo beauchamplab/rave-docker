@@ -2,7 +2,7 @@
 
 ## Update container
 
-1. Update docker image first, runn *Terminal* app:
+1. Update docker image first, run *Terminal* app:
 ```
 docker pull beauchamplab/rave
 ```
