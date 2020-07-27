@@ -93,7 +93,7 @@ local({
 
 # finalize installation
 tryCatch({
-  rave::finalize_installation(upgrade = 'never')
+  rave::finalize_installation(packages = 'ravebuiltins', upgrade = 'never')
 }, error = function(e){
   cat('Error while finalize installation. Reason:\n', e$message, '\n')
 })
