@@ -33,3 +33,9 @@ docker run --name $NAME -p $PORT_MAIN:6767 -v "$RAVE_ROOT":/data/rave_data \
   -e NCPUS=$NCPUS \
   beauchamplab/rave $RAVE_SERVICE
 ```
+
+
+## Where's my data?
+Answer: check /data/ext, you can use R command list.files('/data/ext') to check them or in the command type
+
+  docker exec -ti <docker_name> ls /data/ext
