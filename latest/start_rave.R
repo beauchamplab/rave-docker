@@ -14,7 +14,7 @@ local({
 })
 
 ## configuration for docopt
-doc <- "Usage: start_rave [-h] [-a HOST] [-p PORT] [-n NCPUS] [-x] [--] [PACKAGES ...]
+doc <- "Usage: start_rave [-h] [-a HOST] [-p PORT] [-n NCPUS] [-t TOKEN] [-x] [--] [PACKAGES ...]
 
 -a --host HOST      location in which to install [default: 0.0.0.0]
 -p --port PORT      install suggested dependencies as well [default: 6767]
