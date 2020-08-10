@@ -1,0 +1,43 @@
+#!/usr/bin/env Rscript --vanilla
+#
+# Copyright (C) 2020         Zhengjia Wang
+# Released under GPL (>= 3)
+
+if(system.file('', package = 'docopt') == ''){
+  utils::install.packages('docopt', repos = c(CRAN = "https://cran.rstudio.com/"), quiet = TRUE)
+}
+if(system.file('', package = 'fst') == ''){
+  utils::install.packages('fst', repos = c(CRAN = "https://cran.rstudio.com/"), quiet = TRUE)
+}
+
+## configuration for docopt
+doc <- "Usage: rave_fst2csv [-h] [INFILE] [-o OUTFILE]
+
+INFILE      file to be converted (fst file)
+-o --outfile OUTFILE    file to be generated (csv file)
+
+-h --help           show this help text
+-x --usage          show help and short example usage
+"
+opt <- docopt::docopt(doc)			# docopt parsing
+
+if(!length(opt$INFILE)){
+  cat(doc)
+  stop('INFILE must be specified!')
+}
+
+if(!file.exists(opt$INFILE)){
+  stop('Cannot open file ', opt$INFILE, ': file not found!')
+}
+
+if(!length(opt$OUTFILE)){
+  opt$OUTFILE = sub('\\.fst$', '.csv', opt$INFILE, ignore.case = TRUE)
+}
+
+tbl = fst::read_fst(opt$INFILE, as.data.table = TRUE)
+
+utils::write.csv(tbl, opt$OUTFILE)
+
+cat(opt$OUTFILE, '\n')
+
+# example: ./rave_fst2csv ~/rave_data/data_dir/demo/_project_data/power_explorer/exports/YAB_all-20200605-144156.fst
