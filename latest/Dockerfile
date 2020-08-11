@@ -8,12 +8,14 @@ LABEL org.label-schema.license="GPL-3.0" \
 
 COPY finalize_installation.R /usr/local/bin/finalize_installation
 COPY start_rave.R /usr/local/bin/start_rave
+COPY rave_preprocess.R /usr/local/bin/rave_preprocess
 
 RUN apt-get update -qq \
   && apt-get install -y --no-install-recommends \
   && mkdir -p /data/ \
   && chmod 777 /usr/local/bin/finalize_installation \
   && chmod 777 /usr/local/bin/start_rave \
+  && chmod 777 /usr/local/bin/rave_preprocess \
   && install2.r --error --skipinstalled --deps TRUE docopt \
   && Rscript --verbose --vanilla -e "devtools::install_github('beauchamplab/ravebuiltins', upgrade = FALSE, force = TRUE)" \
   && Rscript --verbose --vanilla -e "devtools::install_github('beauchamplab/rave', upgrade = FALSE, force = TRUE)"

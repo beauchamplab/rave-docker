@@ -3,7 +3,7 @@
 # Copyright (C) 2020         Zhengjia Wang
 # Released under GPL (>= 3)
 
-# Start RAVE main application
+# Start RAVE preprocess modules
 
 library(docopt)
 library(rave)
@@ -14,10 +14,10 @@ local({
 })
 
 ## configuration for docopt
-doc <- "Usage: start_rave [-h] [-a HOST] [-p PORT] [-n NCPUS] [-t TOKEN] [-x] [--] [PACKAGES ...]
+doc <- "Usage: rave_preprocess [-h] [-a HOST] [-p PORT] [-n NCPUS] [-t TOKEN] [-x] [--]
 
 -a --host HOST      location in which to install [default: 0.0.0.0]
--p --port PORT      install suggested dependencies as well [default: 6767]
+-p --port PORT      install suggested dependencies as well [default: 6768]
 -n --ncpus NCPUS    number of processes to use for parallel install [default: NA]
 -t --token TOKEN    token of the application [default: NULL]
 
@@ -91,13 +91,6 @@ local({
   print(raveio::raveio_getopt())
 })
 
-# finalize installation
-
-# tryCatch({
-#   rave::finalize_installation(packages = 'ravebuiltins', upgrade = 'never')
-# }, error = function(e){
-#   cat('Error while finalize installation. Reason:\n', e$message, '\n')
-# })
 install_demo <- Sys.getenv('DEMODATA', unset = '')
 if(install_demo != 'FALSE'){
   # finalize installation
@@ -110,11 +103,11 @@ if(install_demo != 'FALSE'){
 
 # Run rave
 app <-
-  start_rave(
+  rave_preprocess(
     launch.browser = FALSE,
     host = '0.0.0.0',
-    port = opt$port,
-    token = opt$token
+    port = opt$port
+    # token = opt$token
   )
 print(app)
 
