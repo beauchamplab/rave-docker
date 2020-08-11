@@ -1,4 +1,4 @@
-#!/usr/bin/env Rscript --no-restore --no-save
+#!/usr/bin/env -S Rscript --no-restore --no-save
 #
 # Copyright (C) 2020         Zhengjia Wang
 # Released under GPL (>= 3)
@@ -14,7 +14,7 @@ local({
 })
 
 ## configuration for docopt
-doc <- "Usage: start_rave [-h] [-a HOST] [-p PORT] [-n NCPUS] [-t TOKEN] [-x] [--] [PACKAGES ...]
+doc <- "Usage: start_rave [-h] [-a HOST] [-p PORT] [-n NCPUS] [-t TOKEN] [-x] [--]
 
 -a --host HOST      location in which to install [default: 0.0.0.0]
 -p --port PORT      install suggested dependencies as well [default: 6767]

@@ -1,4 +1,4 @@
-#!/usr/bin/env Rscript --vanilla
+#!/usr/bin/env -S Rscript --vanilla
 #
 # Copyright (C) 2020         Zhengjia Wang
 # Released under GPL (>= 3)
@@ -9,17 +9,21 @@ if(system.file('', package = 'docopt') == ''){
 
 
 ## configuration for docopt
-doc <- "Usage: rave_docker [-n NAME] [-p PORT] [-s SECONDARY_PORT] [-c NCPU] [-t TOKEN] [-u] [RAVEROOT]
+doc <- "Usage: rave_docker [-n NAME] [-p PORT] [-s SECONDARY_PORT] [-c NCPU] [-t TOKEN] [-m] [-u] [(RAVEROOT)]
 
--n --name NAME              Container's name, randonly assigned if blank
--p --port PORT              Local port to expose
--s --port2 SECONDARY_PORT   Secondary port for preprocess modules, disabled by default
--c --ncpu NCPU              Number of CPUs to use, default is 1
--t --token TOKEN            Secret token for RAVE instance, randonly assigned if blank
--u --upgrade                Whether to upgrade docker image (this won't affect existing containers)
-RAVEROOT                    Local volume to attach to
+-h --help                   show this help text
 
--h --help           show this help text
+Options:
+  -n --name NAME              Container's name, randonly assigned if blank
+  -p --port PORT              Local port to expose
+  -s --port2 SECONDARY_PORT   Secondary port for preprocess modules, disabled by default
+  -c --ncpu NCPU              Number of CPUs to use, default is 1
+  -t --token TOKEN            Secret token for RAVE instance, randonly assigned if blank
+  -m --minimal                Minimal setup, avoid installing demo subject [default: FALSE]
+  -u --upgrade                Whether to upgrade docker image (this won't affect existing containers)
+
+Required:
+  RAVEROOT                    Local volume to attach to
 
 Example: rave-docker -n ravetest -p 3333 \"/User/dipterix/rave_data\"
 
@@ -100,7 +104,7 @@ if(has_token){
     token <- paste(sample(c(LETTERS,letters,0:9), 10, replace = TRUE), collapse = '')
     random_token <- TRUE
   }
-  token_str <- sprintf(' %s', token)
+  token_str <- sprintf(' --token %s', token)
 } else {
   token_str <- ''
 }
@@ -121,9 +125,16 @@ if(opt$upgrade){
 }
 cat(rep('-', 50), '\n', sep = '')
 
+if(opt$minimal){
+  # no demo data
+  demo_str <- sprintf("-e DEMODATA=FALSE")
+} else {
+  demo_str <- sprintf("-e DEMODATA=TRUE")
+}
+
 cmd1 <- sprintf(
-  'docker run -it -d --name "%s" %s -v "%s":/data/rave_data beauchamplab/rave start_rave --ncpus %d%s',
-  name, port_str, rave_root, ncpu, token_str
+  'docker run -it -d --name "%s" %s -v "%s":/data/rave_data %s beauchamplab/rave start_rave --ncpus %d%s',
+  name, port_str, rave_root, demo_str, ncpu, token_str
 )
 
 cat("\n\n# Starting container...\n")
@@ -132,7 +143,7 @@ system(cmd1, wait = TRUE)
 
 
 if(preprocess_enabled){
-  cmd2 <- sprintf('docker exec -d -it "%s" Rscript --vanilla -e "rave::rave_preprocess(host=\'0.0.0.0\',port=6768,launch.browser=FALSE)"', name)
+  cmd2 <- sprintf('docker exec -d -it "%s" rave_preprocess --ncpus %d%s', name, ncpu, token_str)
   cat("\n\n# Enabling preprocess module...\n")
   cat(">$", cmd2, '\n\n')
   system(cmd2, wait = TRUE)
@@ -156,5 +167,3 @@ if(preprocess_enabled){
   cat("      http://localhost:", port2, '\n\n\n', sep = '')
 }
 
-
-docker exec -it rave-20200811-154249-DtZk bash

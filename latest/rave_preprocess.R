@@ -1,4 +1,4 @@
-#!/usr/bin/env Rscript --no-restore --no-save
+#!/usr/bin/env -S Rscript --no-restore --no-save
 #
 # Copyright (C) 2020         Zhengjia Wang
 # Released under GPL (>= 3)
