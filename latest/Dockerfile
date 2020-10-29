@@ -23,12 +23,13 @@ RUN apt-get update -qq \
 # Temporarily use dev version as master version is too low
 
 RUN Rscript --verbose --vanilla -e "devtools::install_github('beauchamplab/ravebuiltins@migrate2', upgrade = FALSE, force = TRUE)" \
-  && Rscript --verbose --vanilla -e "devtools::install_github('beauchamplab/rave@dev-raveio', upgrade = FALSE, force = TRUE)" \
-  && Rscript --verbose --vanilla -e "devtools::install_github('beauchamplab/raveio', upgrade = FALSE, force = TRUE)" \
-  && Rscript --verbose --vanilla -e "devtools::install_github('dipterix/threeBrain', upgrade = FALSE, force = TRUE)" \
-  && Rscript --verbose --vanilla -e "devtools::install_github('dipterix/lazyarray', upgrade = FALSE, force = TRUE)" \
-  && Rscript --verbose --vanilla -e "devtools::install_github('dipterix/dipsaus', upgrade = FALSE, force = TRUE)" \
   && finalize_installation
+
+#  && Rscript --verbose --vanilla -e "devtools::install_github('beauchamplab/rave@dev-raveio', upgrade = FALSE, force = TRUE)" \
+#  && Rscript --verbose --vanilla -e "devtools::install_github('beauchamplab/raveio', upgrade = FALSE, force = TRUE)" \
+#  && Rscript --verbose --vanilla -e "devtools::install_github('dipterix/threeBrain', upgrade = FALSE, force = TRUE)" \
+#  && Rscript --verbose --vanilla -e "devtools::install_github('dipterix/lazyarray', upgrade = FALSE, force = TRUE)" \
+#  && Rscript --verbose --vanilla -e "devtools::install_github('dipterix/dipsaus', upgrade = FALSE, force = TRUE)" \
 
 EXPOSE 6767
 EXPOSE 6768
