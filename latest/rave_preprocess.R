@@ -69,10 +69,10 @@ arrange_data_dir()
 
 local({
   # get system environment to set dirs
-  data_dir <- Sys.getenv('RAVEDATA', unset = '/data/rave_data/data_dir')
-  raw_data_dir <- Sys.getenv('RAVERAW', unset = '/data/rave_data/raw_dir')
-  tensor_temp_path <- Sys.getenv('RAVECACHE', unset = '/data/rave_data/cache_dir')
-  bids_data_dir <- Sys.getenv('RAVEBIDS', unset = '/data/rave_data/bids_dir')
+  data_dir <- Sys.getenv('RAVEDATA', unset = '/home/raveuser/rave_data/data_dir')
+  raw_data_dir <- Sys.getenv('RAVERAW', unset = '/home/raveuser/rave_data/raw_dir')
+  tensor_temp_path <- Sys.getenv('RAVECACHE', unset = '/home/raveuser/rave_data/cache_dir')
+  bids_data_dir <- Sys.getenv('RAVEBIDS', unset = '/home/raveuser/rave_data/bids_dir')
 
   data_dir <- raveio::dir_create2(data_dir)
   raw_data_dir <- raveio::dir_create2(raw_data_dir)

@@ -12,24 +12,35 @@ COPY rave_preprocess.R /usr/local/bin/rave_preprocess
 
 RUN apt-get update -qq \
   && apt-get install -y --no-install-recommends \
-  && mkdir -p /data/ \
   && chmod 777 /usr/local/bin/finalize_installation \
   && chmod 777 /usr/local/bin/start_rave \
-  && chmod 777 /usr/local/bin/rave_preprocess \
+  && chmod 777 /usr/local/bin/rave_preprocess
+
+# Enter raveuser to install
+RUN useradd -ms /bin/bash -u 1001 raveuser
+USER raveuser
+
+RUN mkdir -p /home/raveuser/rave_data/ \
+  && chmod 777 /home/raveuser/rave_data/ \
+  && Rscript --verbose --no-save -e "dir.create(Sys.getenv('R_LIBS_USER'), showWarnings = FALSE, recursive = TRUE, mode = '0777')" \
   && install2.r --error --skipinstalled --deps TRUE docopt \
   && Rscript --verbose --vanilla -e "devtools::install_github('beauchamplab/ravebuiltins', upgrade = FALSE, force = TRUE)" \
-  && Rscript --verbose --vanilla -e "devtools::install_github('beauchamplab/rave', upgrade = FALSE, force = TRUE)"
+  && Rscript --verbose --vanilla -e "devtools::install_github('beauchamplab/rave', upgrade = FALSE, force = TRUE)" \
+  && Rscript --verbose --vanilla -e "rave::check_dependencies(update_rave = FALSE, restart = TRUE, nightly = TRUE)" \
+  && finalize_installation
 
 # Temporarily use dev version as master version is too low
 
-RUN Rscript --verbose --vanilla -e "devtools::install_github('beauchamplab/ravebuiltins@migrate2', upgrade = FALSE, force = TRUE)" \
-  && finalize_installation
+# RUN Rscript --verbose --vanilla -e "devtools::install_github('beauchamplab/ravebuiltins@migrate2', upgrade = FALSE, force = TRUE)" \
+#   && finalize_installation
 
 #  && Rscript --verbose --vanilla -e "devtools::install_github('beauchamplab/rave@dev-raveio', upgrade = FALSE, force = TRUE)" \
 #  && Rscript --verbose --vanilla -e "devtools::install_github('beauchamplab/raveio', upgrade = FALSE, force = TRUE)" \
 #  && Rscript --verbose --vanilla -e "devtools::install_github('dipterix/threeBrain', upgrade = FALSE, force = TRUE)" \
 #  && Rscript --verbose --vanilla -e "devtools::install_github('dipterix/lazyarray', upgrade = FALSE, force = TRUE)" \
 #  && Rscript --verbose --vanilla -e "devtools::install_github('dipterix/dipsaus', upgrade = FALSE, force = TRUE)" \
+
+WORKDIR /home/raveuser
 
 EXPOSE 6767
 EXPOSE 6768

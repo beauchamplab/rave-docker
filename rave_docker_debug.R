@@ -9,7 +9,7 @@ if(system.file('', package = 'docopt') == ''){
 
 
 ## configuration for docopt
-doc <- "Usage: rave_docker [-m] [-u] [-f] [-n NAME] [-p PORT] [-s SECONDARY_PORT] [-c NCPU] [-t TOKEN] [-r RAM] [(RAVEROOT)]
+doc <- "Usage: rave_docker [-m] [-u] [-f] [-n NAME] [-p PORT] [-s SECONDARY_PORT] [-c NCPU] [-t TOKEN] [(RAVEROOT)]
 
 -h --help                   show this help text
 
@@ -19,7 +19,6 @@ Options:
   -s --port2 SECONDARY_PORT   Secondary port for preprocess modules, disabled by default
   -c --ncpu NCPU              Number of CPUs to use, default is 1
   -t --token TOKEN            Secret token for RAVE instance, randonly assigned if blank
-  -r --memory RAM             Memory limit in GB for each container, default is 8
   -m --minimal                Minimal setup, avoid installing demo subject [default: FALSE]
   -u --upgrade                Whether to upgrade docker image (this won't affect existing containers)
   -f --force                  Force execute the command even if the container exists
@@ -127,23 +126,6 @@ if(ncpu <= 0){
   stop("ncpu must be positive, provided: ", ncpu)
 }
 
-# memory
-memory_limit <- opt$memory
-if(is.null(memory_limit)){
-  memory_limit <- 8
-}
-memory_limit <- as.numeric(memory_limit)
-if(length(memory_limit) != 1 || is.na(memory_limit) || memory_limit < 0.5){
-  cat(doc)
-  stop("Memory limit is invalid, must be positive > 0.5, provided: ", opt$ncpu)
-}
-memory_reserve <- memory_limit / 2
-if(memory_reserve > 2){
-  memory_reserve <- 2
-}
-memory_limit <- as.integer(memory_limit * 1024)
-memory_reserve <- as.integer(memory_reserve * 1024)
-
 # token
 token <- opt$token
 has_token <- !is.null(token)
@@ -183,7 +165,7 @@ if(opt$minimal){
 }
 
 cmd1 <- sprintf(
-  'docker run -it -d --name "%s" %s -v "%s":/data/rave_data %s beauchamplab/rave start_rave --ncpus %d%s',
+  'docker run -it -d --name "%s" %s -v "%s":/home/raveuser/rave_data/:z %s beauchamplab/rave start_rave --ncpus %d%s',
   name, port_str, rave_root, demo_str, ncpu, token_str
 )
 
